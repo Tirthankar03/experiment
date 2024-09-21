@@ -41,18 +41,24 @@ function ReviewColumn({
   msPerPixel?: number
 }) {
   const columnRef = useRef<HTMLDivElement | null>(null)
+  //make the column respect the container height. if the container is small, then the speed of the animation will relatively inc
   const [columnHeight, setColumnHeight] = useState(0)
   const duration = `${columnHeight * msPerPixel}ms`
 
+
+  //if the user resizes the window, how columns render =>
+
   useEffect(() => {
     if (!columnRef.current) return
-
+    //ResizeObserver helps in listening to resizing of an element and execute logic
     const resizeObserver = new window.ResizeObserver(() => {
       setColumnHeight(columnRef.current?.offsetHeight ?? 0)
     })
 
+    //listen to the changes in the div
     resizeObserver.observe(columnRef.current)
 
+    //avoid memory leaks
     return () => {
       resizeObserver.disconnect()
     }
@@ -74,6 +80,8 @@ function ReviewColumn({
   )
 }
 
+
+//make the reviewProps take all the attributes that a normal html element would
 interface ReviewProps extends HTMLAttributes<HTMLDivElement> {
   imgSrc: string
 }
@@ -106,20 +114,39 @@ function Review({ imgSrc, className, ...props }: ReviewProps) {
   )
 }
 
+
+
+export function Reviews() {
+  return (
+    <MaxWidthWrapper className='relative max-w-5xl'>
+      <img
+        aria-hidden='true'
+        src='/what-people-are-buying.png'
+        className='absolute select-none hidden xl:block -left-32 top-1/3'
+      />
+
+      <ReviewGrid />
+    </MaxWidthWrapper>
+  )
+}
+
+
 function ReviewGrid() {
   const containerRef = useRef<HTMLDivElement | null>(null)
+  //use framer motion to check if the element is in view or not
   const isInView = useInView(containerRef, { once: true, amount: 0.4 })
   const columns = splitArray(PHONES, 3)
   const column1 = columns[0]
   const column2 = columns[1]
   const column3 = splitArray(columns[2], 2)
-
+ 
   return (
     <div
       ref={containerRef}
       className='relative -mx-4 mt-16 grid h-[49rem] max-h-[150vh] grid-cols-1 items-start gap-8 overflow-hidden px-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3'>
       {isInView ? (
         <>
+          {/* column comp */}
           <ReviewColumn
             reviews={[...column1, ...column3.flat(), ...column2]}
             reviewClassName={(reviewIndex) =>
@@ -148,19 +175,5 @@ function ReviewGrid() {
       <div className='pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-slate-100' />
       <div className='pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-100' />
     </div>
-  )
-}
-
-export function Reviews() {
-  return (
-    <MaxWidthWrapper className='relative max-w-5xl'>
-      <img
-        aria-hidden='true'
-        src='/what-people-are-buying.png'
-        className='absolute select-none hidden xl:block -left-32 top-1/3'
-      />
-
-      <ReviewGrid />
-    </MaxWidthWrapper>
   )
 }

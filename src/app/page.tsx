@@ -2,6 +2,7 @@
 import { Icons } from "@/components/Icons";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Phone from "@/components/Phone";
+import { Reviews } from "@/components/Reviews";
 // import { Reviews } from "@/components/Reviews";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight, Check, Star } from "lucide-react";
@@ -206,6 +207,12 @@ export default function Home() {
             </div>
           </div>
         </MaxWidthWrapper>
+
+
+
+        <div className="pt-16">
+          <Reviews />
+        </div>
       </section>
 
 
@@ -272,6 +279,7 @@ export default function Home() {
             </div>
           </ul>
         </MaxWidthWrapper>
+
       </section>
       </div>
   );

@@ -32,6 +32,7 @@ const Page = async ({ searchParams }: PageProps) => {
     imageDimensions={{ width, height }}
     imageUrl={imageUrl}
   />
+  
   )
 }
 

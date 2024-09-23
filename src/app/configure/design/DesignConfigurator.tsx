@@ -18,6 +18,9 @@ import { Button } from "@/components/ui/button";
 import { BASE_PRICE } from "@/config/products";
 import { toast } from "@/hooks/use-toast";
 import { useUploadThing } from "@/lib/uploadthing";
+import { useMutation } from "@tanstack/react-query";
+import { saveConfig, SaveConfigArgs } from "./actions";
+import { useRouter } from "next/navigation";
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -60,6 +63,29 @@ const DesignConfigurator = ({
     model: MODELS.options[0],
     material: MATERIALS.options[0],
     finish: FINISHES.options[0],
+  })
+
+
+  const router = useRouter()
+
+
+
+  const { mutate: saveConfigMutation, isPending } = useMutation({
+    mutationKey: ['save-config'],
+    mutationFn: async (args: SaveConfigArgs) => {
+      //running all actions at the same time
+      await Promise.all([saveConfiguration(), saveConfig(args)])
+    },
+    onError: () => {
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      })
+    },
+    onSuccess: () => {
+      router.push(`/configure/preview?id=${configId}`)
+    },
   })
 
 
@@ -398,7 +424,13 @@ const DesignConfigurator = ({
               <Button
                 size='sm'
                 className='w-full'
-                onClick={saveConfiguration}
+                onClick={() => saveConfigMutation({
+                  configId,
+                  color: options.color.value,
+                  finish: options.finish.value,
+                  material: options.material.value,
+                  model: options.model.value,
+                })}
                 >
                 Continue
                 <ArrowRight className='h-4 w-4 ml-1.5 inline' />

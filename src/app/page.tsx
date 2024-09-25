@@ -1,4 +1,5 @@
 
+import { auth } from "@/auth";
 import { Icons } from "@/components/Icons";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Phone from "@/components/Phone";
@@ -9,7 +10,12 @@ import { ArrowRight, Check, Star } from "lucide-react";
 import Link from "next/link";
 
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
+
+
+  console.log({session});
+  
   return (
     <div className="bg-slate-50 grainy-light">
       <section>

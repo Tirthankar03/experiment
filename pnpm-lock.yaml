@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@auth/prisma-adapter':
+        specifier: ^2.5.2
+        version: 2.5.2(@prisma/client@5.19.1(prisma@5.19.1))
       '@headlessui/react':
         specifier: ^1.7.19
         version: 1.7.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -83,6 +86,9 @@ importers:
       react-dropzone:
         specifier: ^14.2.3
         version: 14.2.3(react@18.3.1)
+      react-icons:
+        specifier: ^5.3.0
+        version: 5.3.0(react@18.3.1)
       react-rnd:
         specifier: ^10.4.13
         version: 10.4.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -146,6 +152,25 @@ packages:
         optional: true
       nodemailer:
         optional: true
+
+  '@auth/core@0.35.2':
+    resolution: {integrity: sha512-4PSrmSkZNMNQEHq86jARBYqls/9G2ECGMJmlazXxkRpZWgtKMUBXF1HUPz82cxy3qFXZ9/HPEiGIEGtIvu4YGQ==}
+    peerDependencies:
+      '@simplewebauthn/browser': ^9.0.1
+      '@simplewebauthn/server': ^9.0.2
+      nodemailer: ^6.8.0
+    peerDependenciesMeta:
+      '@simplewebauthn/browser':
+        optional: true
+      '@simplewebauthn/server':
+        optional: true
+      nodemailer:
+        optional: true
+
+  '@auth/prisma-adapter@2.5.2':
+    resolution: {integrity: sha512-yqBBZMzUIFUFU/rUf99wq81wV3nLsvB/XwG+BXoVYXE9lIHENgzdaDn53RbT0iu5kT8zXhSz/U1RfM6bG75y7g==}
+    peerDependencies:
+      '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
 
   '@effect/platform@0.63.2':
     resolution: {integrity: sha512-b39pVFw0NGo/tXjGShW7Yg0M+kG7bRrFR6+dQ3aIu99ePTkTp6bGb/kDB7n+dXsFFdIqHsQGYESeYcOQngxdFQ==}
@@ -2098,6 +2123,11 @@ packages:
     peerDependencies:
       react: '>= 16.8 || 18.0.0'
 
+  react-icons@5.3.0:
+    resolution: {integrity: sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==}
+    peerDependencies:
+      react: '*'
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -2560,6 +2590,25 @@ snapshots:
       oauth4webapi: 2.16.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
+
+  '@auth/core@0.35.2':
+    dependencies:
+      '@panva/hkdf': 1.2.1
+      '@types/cookie': 0.6.0
+      cookie: 0.6.0
+      jose: 5.9.2
+      oauth4webapi: 2.16.0
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3(preact@10.11.3)
+
+  '@auth/prisma-adapter@2.5.2(@prisma/client@5.19.1(prisma@5.19.1))':
+    dependencies:
+      '@auth/core': 0.35.2
+      '@prisma/client': 5.19.1(prisma@5.19.1)
+    transitivePeerDependencies:
+      - '@simplewebauthn/browser'
+      - '@simplewebauthn/server'
+      - nodemailer
 
   '@effect/platform@0.63.2(@effect/schema@0.68.18(effect@3.4.8))(effect@3.4.8)':
     dependencies:
@@ -4662,6 +4711,10 @@ snapshots:
       attr-accept: 2.2.2
       file-selector: 0.6.0
       prop-types: 15.8.1
+      react: 18.3.1
+
+  react-icons@5.3.0(react@18.3.1):
+    dependencies:
       react: 18.3.1
 
   react-is@16.13.1: {}

@@ -12,9 +12,13 @@ import { cn, formatPrice } from "@/lib/utils"
 import Phone from "@/components/Phone"
 import Confetti from 'react-dom-confetti'
 import LoginModal from "@/components/LoginModal"
-
+import { useMutation } from "@tanstack/react-query"
+import { createCheckoutSession } from "./actions"
+import { useSession } from "next-auth/react"
 
 const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
+    const { data: session } = useSession()
+    const user = session?.user
     const router = useRouter()
     const { toast } = useToast()
     const { id } = configuration
@@ -42,6 +46,36 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
     
 
 
+
+
+  const { mutate: createPaymentSession } = useMutation({
+    mutationKey: ['get-checkout-session'],
+    mutationFn: createCheckoutSession,
+    onSuccess: ({ url }) => {
+      if (url) router.push(url)
+      else throw new Error('Unable to retrieve payment URL.')
+    },
+    onError: () => {
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      })
+    },
+  })
+
+
+
+  const handleCheckout = () => {
+    if (user) {
+      // create payment session
+      createPaymentSession({ configId: id })
+    } else {
+      // need to log in
+      localStorage.setItem('configurationId', id)
+      setIsLoginModalOpen(true)
+    }
+  }
 
 
       return (
@@ -138,6 +172,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                   <Button
                     // disabled={true}
                     // isLoading={true}
+                    onClick={() => handleCheckout()}
                     loadingText="Loading"
                     className='px-4 sm:px-6 lg:px-8'>
                     Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />

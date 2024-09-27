@@ -26,4 +26,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/signin",
       error: '/auth/error',
     },
+
+  callbacks:{
+    async redirect({ baseUrl }) {
+      // Redirect to /auth-callback in all cases after authentication
+      return `${baseUrl}/auth-callback`;
+    },
+
+  }
 });

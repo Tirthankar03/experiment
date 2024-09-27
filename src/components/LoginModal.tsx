@@ -8,6 +8,9 @@ import {
 } from './ui/dialog'
 import Image from 'next/image'
 import { Button, buttonVariants } from './ui/button'
+import { useRouter } from 'next/navigation'
+import { FcGoogle } from 'react-icons/fc'
+import { SignInGoogle } from './auth/sign-in-goole'
 
 const LoginModal = ({
   isOpen,
@@ -16,6 +19,8 @@ const LoginModal = ({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) => {
+
+  const router = useRouter()
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <DialogContent className='absolute z-[9999999]'>
@@ -39,13 +44,22 @@ const LoginModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className='grid grid-cols-2 gap-6 divide-x divide-gray-200'>
-          <Button className={buttonVariants({ variant: 'outline' })}>
-            Login
+        <div className='flex gap-6 divide-x divide-gray-200'>
+          <Button className={buttonVariants({ variant: 'outline' }) } onClick={() => router.push(`/auth/signin`)} >
+            <div className='flex gap-6'>
+              <div>
+
+            Sign in with Google
+              </div>
+              <div>
+              <FcGoogle />
+              </div>
+            </div>
           </Button>
-          <Button className={buttonVariants({ variant: 'default' })}>
+          {/* <SignInGoogle /> */}
+          {/* <Button className={buttonVariants({ variant: 'default' })}>
             Sign up
-          </Button>
+          </Button> */}
         </div>
       </DialogContent>
     </Dialog>

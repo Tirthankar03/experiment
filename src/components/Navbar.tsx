@@ -1,15 +1,17 @@
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { ArrowRight } from "lucide-react";
+import { auth } from "@/auth";
+import { handleSignOut } from "@/app/auth/actions";
 
-const Navbar = () => {
-  const user = {
-    email: "demo@gmail.com",
-  };
+const Navbar = async () => {
+  const session = await auth()
+
+  const user = session?.user
 
   // const isAdmin = user?.email === process.env.ADMIN_EMAIL
-  const isAdmin = user?.email === "demo@gmail.com";
+  const isAdmin = user?.email === "tirthankarnath03@gmail.com";
 
   return (
     <nav className="sticky z-[100] h-20 inset-x-0 top-0 bg-white/75 w-full border-b border-gray-200 backdrop-blur">
@@ -22,8 +24,8 @@ const Navbar = () => {
           <div className=" h-full flex items-center space-x-4">
             {user ? (
               <>
-                <Link
-                  href="/api/auth/logout"
+        <form action={handleSignOut}>
+                <Button
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",
@@ -31,7 +33,9 @@ const Navbar = () => {
                   })}
                 >
                   Sign out
-                </Link>
+                </Button>
+                </form>
+
                 {isAdmin ? (
                   <Link
                     href="/dashboard"
@@ -58,18 +62,9 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link
-                  href="/api/auth/register"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
-                >
-                  Sign up
-                </Link>
 
                 <Link
-                  href="/api/auth/login"
+                  href="/auth/signin"
                   className={buttonVariants({
                     size: "sm",
                     variant: "ghost",

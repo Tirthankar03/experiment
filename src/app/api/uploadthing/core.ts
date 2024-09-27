@@ -2,7 +2,7 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { z } from 'zod';
 //shift + alt + o => remove unused imports
 import sharp from 'sharp'
-import { db } from "@/db";
+import { db } from "@/app/db";
 
 const f = createUploadthing();
 

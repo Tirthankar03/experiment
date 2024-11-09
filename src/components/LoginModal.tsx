@@ -23,12 +23,12 @@ const LoginModal = ({
   const router = useRouter()
   return (
     <Dialog onOpenChange={setIsOpen} open={isOpen}>
-      <DialogContent className='absolute z-[9999999]'>
+      <DialogContent className="sm:max-w-[425px] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <DialogHeader>
           <div className='relative mx-auto w-24 h-24 mb-2'>
             <Image
-              src='/snake-1.png'
-              alt='snake image'
+              src='/phone-step1-removebg.png'
+              alt='phone image'
               className='object-contain'
               fill
             />

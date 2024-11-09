@@ -47,6 +47,6 @@ export function constructMetadata({
       creator: '@tirthankarnath',
     },
     icons,
-    metadataBase: new URL("https://casecobra-virid.vercel.app/")
+    metadataBase: new URL("https://cupcase.vercel.app/")
   }
 }

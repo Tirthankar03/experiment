@@ -2,6 +2,8 @@
 import Menu from "@/components/motion/Menu";
 import Menu2 from "@/components/motion/Menu2";
 import { Drag, EnterAnimation, ExitAnimation } from "@/components/motion/motion";
+import SideBar1 from "@/components/motion/sidebar/Sidebar-1";
+import Sidebar2 from "@/components/motion/sidebar/Sidebar2";
 import { cn } from "@/lib/utils";
 import { useScroll, useSpring } from "motion/react";
 import * as motion from "motion/react-client";
@@ -263,6 +265,10 @@ const page = () => {
 <Menu/>
 
 <Menu2/>
+
+<Sidebar2/>
+
+<SideBar1/>
 
 
       </div>

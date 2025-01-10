@@ -2,12 +2,15 @@
 import Menu from "@/components/motion/Menu";
 import Menu2 from "@/components/motion/Menu2";
 import { Drag, EnterAnimation, ExitAnimation } from "@/components/motion/motion";
+import Parallax from "@/components/motion/Parallax";
 import SideBar1 from "@/components/motion/sidebar/Sidebar-1";
 import Sidebar2 from "@/components/motion/sidebar/Sidebar2";
+import TrackPositionItem from "@/components/motion/TrackPositionV";
 import { cn } from "@/lib/utils";
+import Lenis from "lenis";
 import { useScroll, useSpring } from "motion/react";
 import * as motion from "motion/react-client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const page = () => {
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -23,6 +26,18 @@ const page = () => {
     damping: 30,
     restDelta: 0.001,
 })
+
+
+useEffect( () => {
+  const lenis = new Lenis()
+
+  function raf(time:any) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+  }
+
+  requestAnimationFrame(raf)
+}, [])
 
 
   return (
@@ -269,6 +284,10 @@ const page = () => {
 <Sidebar2/>
 
 <SideBar1/>
+
+<TrackPositionItem/>
+<TrackPositionItem/>
+<TrackPositionItem/>
 
 
       </div>

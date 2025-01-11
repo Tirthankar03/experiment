@@ -2,6 +2,7 @@
 import Parallex1 from '@/components/motion/animations/Parallex1'
 import Parallex2 from '@/components/motion/animations/Parallex2'
 import ScrollCardParallex from '@/components/motion/animations/ScrollCardParallex'
+import ZoomParallex from '@/components/motion/animations/ZoomParallex'
 import Lenis from 'lenis'
 import React, { useEffect } from 'react'
 
@@ -25,6 +26,7 @@ const page = () => {
         <Parallex1/>
         <Parallex2/>
         <ScrollCardParallex/>
+        <ZoomParallex/>
     </div>
   )
 }
